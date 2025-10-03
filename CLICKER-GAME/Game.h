@@ -8,6 +8,7 @@
 #include <TGUI/Backend/SFML-Graphics.hpp>
 #include <string>
 #include <iostream>
+#include "shop.h"
 class Game
 {
 public:
@@ -18,10 +19,8 @@ public:
 	void ClickingEvent(const sf::Event& ev);
 	void ShopClickEvent(const sf::Event& ev);
 	void LoadingFont();
-	void Parameters();
 	void Displaying();
 	void DisplayingMoney(int cash);
-	void DisplayingShop();
 	void ShopButton();
 	int money = 0;
 	bool isShopOpen = false;
@@ -29,4 +28,5 @@ public:
 	sf::Font font;
 	sf::RectangleShape shopbutton;
 	tgui::Gui gui;
+	shop shop;
 };

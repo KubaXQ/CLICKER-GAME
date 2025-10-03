@@ -1,9 +1,8 @@
 #include "Game.h"
 
-Game::Game() : window(sf::VideoMode({ 1200,600 }), "okno gry", sf::Style::Close | sf::Style::Titlebar), gui(window)
+Game::Game() : window(sf::VideoMode({ 1200,600 }), "okno gry", sf::Style::Close | sf::Style::Titlebar), gui(window), shop(gui)
 {
 	
-
 	LoadingFont();
 	ShopButton();
 }
@@ -13,7 +12,6 @@ void Game::Running()
 	while (window.isOpen()) 
 	{
 		Events();
-		Parameters();
 		Displaying();
 		window.clear();
 	}
@@ -83,19 +81,15 @@ void Game::LoadingFont()
 	
 }
 
-void Game::Parameters()
-{
-	//SHOP BUTTON
-}
-
 void Game::Displaying()
 {
 	if (isShopOpen == true)
 	{
-		DisplayingShop();
+		shop.AllButtons();
 	}
 	else
 	{
+		window.clear();
 		DisplayingMoney(money);
 	}
 	gui.draw();
@@ -112,12 +106,6 @@ void Game::DisplayingMoney(int cash)
 	window.draw(moneytext);
 	
 }
-
-void Game::DisplayingShop()
-{
-	//wyswietlanie sklepu jesli kliknelo sie na przycisko shopa i jest true
-}
-
 void Game::ShopButton()
 {
 	auto shopBtn = tgui::Button::create("Shop");
