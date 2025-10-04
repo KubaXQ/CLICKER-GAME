@@ -1,12 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/System.hpp>
 #include <TGUI/TGUI.hpp>
 #include <TGUI/Backend/SFML-Graphics.hpp>
-#include <string>
 #include <iostream>
 #include "shop.h"
 class Game

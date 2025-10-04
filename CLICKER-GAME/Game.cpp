@@ -5,6 +5,7 @@ Game::Game() : window(sf::VideoMode({ 1200,600 }), "okno gry", sf::Style::Close 
 	
 	LoadingFont();
 	ShopButton();
+	shop.AllButtons();
 }
 
 void Game::Running()
@@ -85,10 +86,11 @@ void Game::Displaying()
 {
 	if (isShopOpen == true)
 	{
-		shop.AllButtons();
+		shop.show();
 	}
 	else
 	{
+		shop.hide();
 		window.clear();
 		DisplayingMoney(money);
 	}

@@ -139,12 +139,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArtifactShop.cpp" />
+    <ClCompile Include="BackGroundShop.cpp" />
+    <ClCompile Include="ClickDmgShop.cpp" />
+    <ClCompile Include="EquipmentShop.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PetShop.cpp" />
     <ClCompile Include="shop.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArtifactShop.h" />
+    <ClInclude Include="BackGroundShop.h" />
+    <ClInclude Include="ClickDmgShop.h" />
+    <ClInclude Include="EquipmentShop.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="PetShop.h" />
     <ClInclude Include="shop.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
