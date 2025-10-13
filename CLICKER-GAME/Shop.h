@@ -24,5 +24,6 @@ public:
 	tgui::Gui& gui;
 	tgui::Panel::Ptr panel;
 	ClickDmgShop ClickDmgShop;
+	bool isopenClickDmgShop;
 	
 };

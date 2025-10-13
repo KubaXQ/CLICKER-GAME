@@ -28,7 +28,15 @@ void shop::ClickDmg()
         {
             std::cout << "ClickDmg button clicked!\n";
             ClickDmgBtn->setTextSize(20);
-            this->ClickDmgShop.item1();
+            isopenClickDmgShop = !isopenClickDmgShop;
+            if (isopenClickDmgShop) {
+                this->ClickDmgShop.open();
+            }
+            else {
+                this->ClickDmgShop.close();
+            }
+            this->ClickDmgShop.items();
+            
         });
 
     panel->add(ClickDmgBtn);
