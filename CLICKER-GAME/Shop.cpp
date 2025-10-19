@@ -1,12 +1,13 @@
 #include "Shop.h"
 
-
-shop::shop(tgui::Gui& gui) : gui(gui), ClickDmgShop(gui)
+shop::shop(tgui::Gui& gui) : gui(gui)
 {
     panel = tgui::Panel::create({ "100%", "100%" });
     panel->getRenderer()->setBackgroundColor(tgui::Color{ 100, 100, 100, 150 });
     panel->setVisible(false);
     gui.add(panel);
+
+    ClickDmgShop = std::make_unique<class ClickDmgShop>(panel);
 }
 
 void shop::AllButtons()
@@ -20,23 +21,24 @@ void shop::AllButtons()
 
 void shop::ClickDmg()
 {
-    
     auto ClickDmgBtn = tgui::Button::create("ClickDmg");
     ClickDmgBtn->setPosition(10, 6);
     ClickDmgBtn->setSize(100, 40);
-    ClickDmgBtn->onClick([ClickDmgBtn,this]()
+
+    ClickDmgBtn->onClick([this, ClickDmgBtn]()
         {
             std::cout << "ClickDmg button clicked!\n";
-            ClickDmgBtn->setTextSize(20);
             isopenClickDmgShop = !isopenClickDmgShop;
-            if (isopenClickDmgShop) {
-                this->ClickDmgShop.open();
+
+            if (isopenClickDmgShop)
+            {
+                ClickDmgShop->open();
+                ClickDmgShop->items();
             }
-            else {
-                this->ClickDmgShop.close();
+            else
+            {
+                ClickDmgShop->close();
             }
-            this->ClickDmgShop.items();
-            
         });
 
     panel->add(ClickDmgBtn);
