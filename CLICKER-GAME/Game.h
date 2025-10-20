@@ -5,6 +5,7 @@
 #include <TGUI/Backend/SFML-Graphics.hpp>
 #include <iostream>
 #include "shop.h"
+#include <iomanip>
 class Game
 {
 public:
@@ -12,13 +13,14 @@ public:
 	void Running();
 	void Events();
 	void ClosingEvent(const sf::Event& ev);
-	void ClickingEvent(const sf::Event& ev);
+	void ClickingEvent(const sf::Event& ev , float multiplier);
 	void ShopClickEvent(const sf::Event& ev);
 	void LoadingFont();
 	void Displaying();
-	void DisplayingMoney(int cash);
+	void DisplayingMoney(float money);
 	void ShopButton();
-	int money = 0;
+	float money = 0;
+	float multiplier = 1;
 	bool isShopOpen = false;
 	sf::RenderWindow window;
 	sf::Font font;

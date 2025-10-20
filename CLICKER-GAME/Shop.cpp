@@ -1,14 +1,16 @@
 #include "Shop.h"
 
-shop::shop(tgui::Gui& gui) : gui(gui)
+//constructor for shop
+shop::shop(tgui::Gui& gui, float& multiplier) : gui(gui), multiplier(multiplier)
 {
     panel = tgui::Panel::create({ "100%", "100%" });
     panel->getRenderer()->setBackgroundColor(tgui::Color{ 100, 100, 100, 150 });
     panel->setVisible(false);
     gui.add(panel);
 
-    ClickDmgShop = std::make_unique<class ClickDmgShop>(panel);
+    ClickDmgShop = std::make_unique<class ClickDmgShop>(panel,multiplier);
 }
+
 
 void shop::AllButtons()
 {
@@ -19,6 +21,7 @@ void shop::AllButtons()
     Artifact();
 }
 
+//clickdmg button that shows clickdmg items or hide them
 void shop::ClickDmg()
 {
     auto ClickDmgBtn = tgui::Button::create("ClickDmg");
@@ -44,6 +47,7 @@ void shop::ClickDmg()
     panel->add(ClickDmgBtn);
 }
 
+//BackGroundButton button that shows BackGroundButton items or hide them
 void shop::BackGroundButton()
 {
     auto shopBtn = tgui::Button::create("BackGround");
@@ -52,6 +56,7 @@ void shop::BackGroundButton()
     panel->add(shopBtn);
 }
 
+//Equipment button that shows Equipment items or hide them
 void shop::Equipment()
 {
     auto EquipmentBtn = tgui::Button::create("Equipment");
@@ -60,6 +65,7 @@ void shop::Equipment()
     panel->add(EquipmentBtn);
 }
 
+//Pet button that shows Pet items or hide them
 void shop::Pet()
 {
     auto PetBtn = tgui::Button::create("Pet");
@@ -68,6 +74,7 @@ void shop::Pet()
     panel->add(PetBtn);
 }
 
+//Artifact button that shows Artifact items or hide them
 void shop::Artifact()
 {
     auto ArtifactBtn = tgui::Button::create("Artifact");
@@ -76,11 +83,13 @@ void shop::Artifact()
     panel->add(ArtifactBtn);
 }
 
+//set panel to visible
 void shop::show()
 {
     panel->setVisible(true);
 }
 
+//set panel to unvisible
 void shop::hide()
 {
     panel->setVisible(false);
