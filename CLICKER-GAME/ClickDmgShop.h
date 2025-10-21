@@ -6,16 +6,17 @@
 class ClickDmgShop
 {
 public:
-    explicit ClickDmgShop(tgui::Panel::Ptr parentPanel, float& multiplier);
+    explicit ClickDmgShop(tgui::Panel::Ptr parentPanel, float& multiplier, float& money, std::map<int, bool>& itemBought);
     void open();
     void close();
-    void items();
+
     void item1();
     void item2();
     void item3();
 
-    float multiplier;
-
+    float& multiplier;
+    float& money;
+    std::map<int, bool>& itemBought;
     tgui::Panel::Ptr parentPanel;
     tgui::ScrollablePanel::Ptr Mainpan;
 

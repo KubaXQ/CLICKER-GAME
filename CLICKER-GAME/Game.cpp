@@ -1,7 +1,7 @@
 #include "Game.h"
 
 //constructor for whole game
-Game::Game() : window(sf::VideoMode({ 1200,600 }), "okno gry", sf::Style::Close | sf::Style::Titlebar), gui(window), shop(gui,multiplier)
+Game::Game() : window(sf::VideoMode({ 1200,600 }), "okno gry", sf::Style::Close | sf::Style::Titlebar), gui(window), shop(gui,multiplier,money, itemBought)
 {
 	
 	LoadingFont();
@@ -28,7 +28,7 @@ void Game::Events()
 		const sf::Event& ev = *evOpt;
 		gui.handleEvent(ev);
 		ClosingEvent(ev);
-		ClickingEvent(ev,multiplier);
+		ClickingEvent(ev);
 		ShopClickEvent(ev);
 	}
 
@@ -53,7 +53,7 @@ void Game::ClosingEvent(const sf::Event& ev)
 }
 
 //event that takes adds money when we click on screen
-void Game::ClickingEvent(const sf::Event& ev, float multiplier)
+void Game::ClickingEvent(const sf::Event& ev)
 {
 	if (auto mouspressed = ev.getIf<sf::Event::MouseButtonPressed>())
 	{
@@ -113,7 +113,6 @@ void Game::DisplayingMoney(float money)
 	moneytext.setCharacterSize(30);
 	moneytext.setFillColor(sf::Color::White);
 	moneytext.setPosition(sf::Vector2f(1.f, 0.f));
-
 	std::stringstream ss;
 	ss << std::fixed << std::setprecision(2) << money; // np. 123.45
 	moneytext.setString("Money: " + ss.str());

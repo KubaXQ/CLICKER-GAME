@@ -2,13 +2,8 @@
 #include <iostream>
 
 //constructor clickdmg with parameters
-ClickDmgShop::ClickDmgShop(tgui::Panel::Ptr parentPanel, float& multiplier) : parentPanel(parentPanel), multiplier(multiplier)
+ClickDmgShop::ClickDmgShop(tgui::Panel::Ptr parentPanel, float& multiplier, float& money, std::map<int, bool>& itemBought) : parentPanel(parentPanel), multiplier(multiplier), money(money), itemBought(itemBought)
 {
-    if (!parentPanel)
-    {
-        std::cout << "parentPanel == nullptr! Nie mo¿na utworzyæ ClickDmgShop.\n";
-        return;
-    }
 
     Mainpan = tgui::ScrollablePanel::create({ "100%", "100%" });
     Mainpan->setVisible(false);
@@ -18,12 +13,14 @@ ClickDmgShop::ClickDmgShop(tgui::Panel::Ptr parentPanel, float& multiplier) : pa
     Mainpan->setContentSize( {1000,2000});
 
     parentPanel->add(Mainpan);
+    item1();
+    item2();
+    item3();
 }
 
 //method open seting Mainpan visible
 void ClickDmgShop::open()
 {
-    if (Mainpan)
         Mainpan->setVisible(true);
 }
 
@@ -31,19 +28,7 @@ void ClickDmgShop::open()
 
 void ClickDmgShop::close()
 {
-    if (Mainpan)
         Mainpan->setVisible(false);
-}
-
-//method items displaying all items
-void ClickDmgShop::items()
-{
-    if (!Mainpan)
-        return;
-
-    item1();
-    item2();
-    item3();
 }
 
 //parameters for window item 1
@@ -64,7 +49,22 @@ void ClickDmgShop::item1()
     Buttons[0]->setSize(100, 40);
     Buttons[0]->setPosition(675, 155);
     Buttons[0]->setText("BUY");
-  
+    
+
+    Buttons[0]->onClick([this]() 
+        {
+        if (money >= 200 && Buttons[0]->getText() == "BUY")
+        {
+            this->Buttons[0]->setText("SOLD");
+            multiplier *= 1.2f;
+            money -= 200;
+            itemBought[0] = true;
+        }
+        else {
+            std::cout << "U dont have money" << std::endl;
+        }
+        });
+   
     Mainpan->add(itemLabels[0]);
     Mainpan->add(itemdescriptionLabels[0]);
     Mainpan->add(Pictures[0]);
@@ -90,6 +90,20 @@ void ClickDmgShop::item2()
     Buttons[1]->setPosition(675, 355);
     Buttons[1]->setText("BUY");
 
+    Buttons[1]->onClick([this]()
+        {
+            if (money >= 500 && Buttons[1]->getText() == "BUY")
+            {
+                this->Buttons[1]->setText("SOLD");
+                multiplier *= 1.5f;
+                money -= 500;
+                itemBought[1] = true;
+            }
+            else {
+                std::cout << "U dont have money" << std::endl;
+            }
+        });
+
     Mainpan->add(itemLabels[1]);
     Mainpan->add(itemdescriptionLabels[1]);
     Mainpan->add(Pictures[1]);
@@ -114,6 +128,20 @@ void ClickDmgShop::item3()
     Buttons[2]->setSize(100, 40);
     Buttons[2]->setPosition(675, 555);
     Buttons[2]->setText("BUY");
+
+    Buttons[2]->onClick([this]()
+        {
+            if (money >= 1000 && Buttons[2]->getText() == "BUY")
+            {
+                this->Buttons[2]->setText("SOLD");
+                multiplier *= 2.f;
+                money -= 1000;
+                itemBought[2] = true;
+            }
+            else {
+                std::cout << "U dont have money" << std::endl;
+            }
+        });
 
     Mainpan->add(itemLabels[2]);
     Mainpan->add(itemdescriptionLabels[2]);

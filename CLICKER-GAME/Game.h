@@ -6,6 +6,8 @@
 #include <iostream>
 #include "shop.h"
 #include <iomanip>
+#include <unordered_map>
+
 class Game
 {
 public:
@@ -13,14 +15,15 @@ public:
 	void Running();
 	void Events();
 	void ClosingEvent(const sf::Event& ev);
-	void ClickingEvent(const sf::Event& ev , float multiplier);
+	void ClickingEvent(const sf::Event& ev);
 	void ShopClickEvent(const sf::Event& ev);
 	void LoadingFont();
 	void Displaying();
 	void DisplayingMoney(float money);
 	void ShopButton();
 	float money = 0;
-	float multiplier = 1;
+	float multiplier = 1.0f;
+	std::map<int, bool> itemBought;
 	bool isShopOpen = false;
 	sf::RenderWindow window;
 	sf::Font font;

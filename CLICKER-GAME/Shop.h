@@ -9,7 +9,7 @@
 class shop
 {
 public:
-    explicit shop(tgui::Gui& gui, float& multiplier);
+    explicit shop(tgui::Gui& gui, float& multiplier, float& money, std::map<int, bool>& itemBought);
     void AllButtons();
     void ClickDmg();
     void BackGroundButton();
@@ -18,7 +18,9 @@ public:
     void Artifact();
     void show();
     void hide();
-    float multiplier;
+    float& multiplier;
+    float& money;
+    std::map<int, bool>& itemBought;
     tgui::Gui& gui;
     tgui::Panel::Ptr panel;
     std::unique_ptr<ClickDmgShop> ClickDmgShop;

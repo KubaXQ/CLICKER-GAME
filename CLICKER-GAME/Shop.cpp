@@ -1,14 +1,14 @@
 #include "Shop.h"
 
 //constructor for shop
-shop::shop(tgui::Gui& gui, float& multiplier) : gui(gui), multiplier(multiplier)
+shop::shop(tgui::Gui& gui, float& multiplier, float& money, std::map<int, bool>& itemBought) : gui(gui), multiplier(multiplier), money(money),itemBought(itemBought)
 {
     panel = tgui::Panel::create({ "100%", "100%" });
     panel->getRenderer()->setBackgroundColor(tgui::Color{ 100, 100, 100, 150 });
     panel->setVisible(false);
     gui.add(panel);
 
-    ClickDmgShop = std::make_unique<class ClickDmgShop>(panel,multiplier);
+    ClickDmgShop = std::make_unique<class ClickDmgShop>(panel,multiplier,money,itemBought);
 }
 
 
@@ -36,7 +36,6 @@ void shop::ClickDmg()
             if (isopenClickDmgShop)
             {
                 ClickDmgShop->open();
-                ClickDmgShop->items();
             }
             else
             {
