@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="ArtifactShop.cpp" />
     <ClCompile Include="BackGroundShop.cpp" />
+    <ClCompile Include="BaseShop.cpp" />
     <ClCompile Include="ClickDmgShop.cpp" />
     <ClCompile Include="EquipmentShop.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="ArtifactShop.h" />
     <ClInclude Include="BackGroundShop.h" />
+    <ClInclude Include="BaseShop.h" />
     <ClInclude Include="ClickDmgShop.h" />
     <ClInclude Include="EquipmentShop.h" />
     <ClInclude Include="Game.h" />

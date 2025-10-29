@@ -3,10 +3,17 @@
 //constructor for whole game
 Game::Game() : window(sf::VideoMode({ 1200,600 }), "okno gry", sf::Style::Close | sf::Style::Titlebar), gui(window), shop(gui,multiplier,money, itemBought)
 {
-	
+	LoadGame();
 	LoadingFont();
-	ShopButton();
+	
 	shop.AllButtons();
+	ClickDmgPic = tgui::Picture::create("src/wooden_sword.jpg");
+	ClickDmgPic->setVisible(false);
+	GamePanel = tgui::Panel::create({ "100%", "100%" });
+	GamePanel->getRenderer()->setBackgroundColor(tgui::Color{ 100, 100, 100, 150 });
+	gui.add(GamePanel);
+	GamePanel->add(ClickDmgPic);
+	ShopButton();
 }
 
 //main loop that handle events, displaying everything 
@@ -40,12 +47,14 @@ void Game::ClosingEvent(const sf::Event& ev)
 	
 		if (ev.is <sf::Event::Closed>())
 		{
+			SaveGame();
 			window.close();
 		}
 		else if (auto keypressed = ev.getIf<sf::Event::KeyPressed>())
 		{
 			if (keypressed->scancode == sf::Keyboard::Scancode::Escape)
 			{
+				SaveGame();
 				window.close();
 			}
 		}
@@ -95,12 +104,15 @@ void Game::Displaying()
 	if (isShopOpen == true)
 	{
 		shop.show();
+		GamePanel->setVisible(false);
 	}
 	else
 	{
 		shop.hide();
 		window.clear();
+		GamePanel->setVisible(true);
 		DisplayingMoney(money);
+		DisplayingClickDmgItem();
 	}
 	gui.draw();
 	window.display();
@@ -120,6 +132,36 @@ void Game::DisplayingMoney(float money)
 	window.draw(moneytext);
 }
 
+void Game::DisplayingClickDmgItem()
+{
+	if (itemBought.empty()) {
+		ClickDmgPic->setVisible(false);
+		return;
+	}
+
+	ClickDmgPic->setVisible(true);
+	ClickDmgPic->setPosition({ 1149, 50 });
+	ClickDmgPic->setSize({ 50, 50 });
+
+	switch (itemBought.size())
+	{
+	case 1:
+		ClickDmgPic->getRenderer()->setTexture("src/wooden_sword.jpg");
+
+		break;
+	case 2:
+		ClickDmgPic->getRenderer()->setTexture("src/stone_sword.png");
+		break;
+	case 3:
+		ClickDmgPic->getRenderer()->setTexture("src/iron_sword.jpg");
+		break;
+	default:
+		break;
+	};
+	
+
+}
+
 //parameters for shop button and handle click event on button
 void Game::ShopButton()
 {
@@ -133,4 +175,48 @@ void Game::ShopButton()
 		});
 	gui.add(shopBtn);
 
+}
+
+void Game::SaveGame()
+{
+	std::ofstream save("save.txt");
+
+	if (!save.is_open())
+		return;
+
+	save << money << "\n";
+	save << multiplier << "\n";
+	save << itemBought.size() << "\n";
+
+	for (auto& [id, owned] : itemBought)
+	{
+		save << id << " " << owned << "\n";
+	}
+
+	std::cout << "Game saved!\n";
+}
+
+void Game::LoadGame()
+{
+	std::ifstream load("save.txt");
+
+	if (!load.is_open())
+		return;
+
+	itemBought.clear();
+
+	size_t count = 0;
+	load >> money;
+	load >> multiplier;
+	load >> count;
+
+	for (size_t i = 0; i < count; i++)
+	{
+		int id;
+		bool owned;
+		load >> id >> owned;
+		itemBought[id] = owned;
+	}
+
+	std::cout << "Game loaded!\n";
 }

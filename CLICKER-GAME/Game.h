@@ -7,7 +7,7 @@
 #include "shop.h"
 #include <iomanip>
 #include <unordered_map>
-
+#include <fstream>
 class Game
 {
 public:
@@ -20,11 +20,16 @@ public:
 	void LoadingFont();
 	void Displaying();
 	void DisplayingMoney(float money);
+	void DisplayingClickDmgItem();
 	void ShopButton();
-	float money = 0;
+	void SaveGame();
+	void LoadGame();
+	float money = 20000;
 	float multiplier = 1.0f;
 	std::map<int, bool> itemBought;
 	bool isShopOpen = false;
+	tgui::Picture::Ptr ClickDmgPic;
+	tgui::Panel::Ptr GamePanel;
 	sf::RenderWindow window;
 	sf::Font font;
 	sf::RectangleShape shopbutton;
